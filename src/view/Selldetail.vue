@@ -41,13 +41,15 @@ export default {
     	type:'',
     	model:false,
     	orderNumber:'',
-    	detaildata:''
+    	detaildata:'',
+		currPrice:''
     }
   },
  
   created(){
 	this.type=this.$route.query.type;
 	this.orderNumber=this.$route.query.orderNumber;
+    this.currPrice=this.$route.query.currPrice;
 	this.getbuydetai();
   },
   mounted(){
@@ -63,9 +65,10 @@ export default {
 		 	dataType:"json", 
 		 	type:"get",
 		 	url:this.testUrl+'product/getOrderdetail',
-		 	data:{
+		 	data:{				
 		 		orderNumber:this.orderNumber,
-		 		uid:localStorage.getItem('uid')
+		 		uid:localStorage.getItem('uid'),
+				currPrice:this.currPrice
 		 	},
 		 	success:function(res){
 	       		if(res.code==200){
@@ -104,7 +107,9 @@ export default {
 	       		  	 _this.model=false;
 	       		  	 _this.$router.push({path:'/dealdetail',query:{clas:'sell'}})
 	       		  },2000)
-	       		}	       
+	       		}else if(res.code==400){
+					 _this.$toast(res.msg);
+				}	       
 	         },          
 	         error:function(res){
 	          _this.$toast('网络错误');

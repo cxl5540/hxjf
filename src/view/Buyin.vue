@@ -2,7 +2,7 @@
 	<div class="buy">
 		 <div class="header">
 		 	<span @click="back()"><img src="../assets/b_fanhui.png"/>返回</span>
-		 	<span>恒生</span>
+		 	<span>{{productName}}</span>
 		 	<span style="opacity: 0;">title</span>
 		 </div>
 		 <div class="bgline"></div>

@@ -25,7 +25,8 @@ import Rulesdetail from '@/view/rulesdetail'
 import Addmoney from '@/view/addmoney' 
 import Home from '@/components/Home'                    
 import question from '@/components/question'       
-import result from '@/components/result'        
+import result from '@/components/result'  
+import Chat from '@/view/Chat'     
 Vue.use(Router)
 
 export default new Router({
@@ -88,6 +89,14 @@ export default new Router({
       	title:'交易明细'
       }
     },
+		{
+		  path: '/chat',
+		  name: 'Chat',
+		  component: Chat,
+		  meta:{
+		  	title:'联系客服'
+		  }
+		},
     {
       path: '/dealrules',
       name: 'Dealrules',

@@ -7,7 +7,7 @@ import 'lib-flexible/flexible'
 Vue.config.productionTip = false
 import Axios from 'axios'
 import ElementUI from 'element-ui'
- import store from './store'
+
 Vue.use(ElementUI)
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.prototype.$axios = Axios;
@@ -24,9 +24,9 @@ import  '../static/js/global.js'
 import { MessageBox } from 'mint-ui';
 Vue.prototype.$messagebox = MessageBox
 //Vue.prototype.$toast = Toast
-//Vue.prototype.testUrl = "http://192.168.3.94:80/" ;
+//Vue.prototype.testUrl = "http://47.108.143.16/" ;
 // Vue.prototype.testUrl = "http://120.27.3.220:9501/yhjf/"
-Vue.prototype.testUrl = "http://47.108.143.16/yhjf/"
+Vue.prototype.testUrl = "http://127.0.0.1:8089/yhjf/"
 Vue.prototype.uid='';
 
 //import SockJS from  'sockjs-client';
@@ -66,7 +66,6 @@ next()
 new Vue({
   el: '#app',
   router,
-  store,
   components: { App },
   template: '<App/>'
 })

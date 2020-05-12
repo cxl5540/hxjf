@@ -152,7 +152,12 @@ export default {
 	 },
 	 addmoney(){
 	 	if(localStorage.getItem('uid')){
-	 		 this.$router.push({path:'/addmoney',query:{type:'add'}})
+	 		 // this.$router.push({path:'/addmoney',query:{type:'add'}})
+			 this.$toast('充值请添加客服微信');
+			 let _this=this;
+			 setTimeout(function(){
+			 				_this.$router.push({path:'/chat'}) 
+			 },2000)
 	 	}else{
 	 	   this.$router.push({path:'/login'})
 	 	}

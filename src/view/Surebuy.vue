@@ -81,7 +81,7 @@ export default {
 	       		  },2000)
 	       		   
 	       		}else if(res.code==400){
-	       			_this.$router.push({path:'/dealdetail',query:{clas:'login'}})	
+	       			 _this.$toast(res.msg);
 	       		}
 	       
 	         },          

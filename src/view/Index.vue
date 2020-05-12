@@ -12,18 +12,16 @@
      		<p>交易产品</p>
      		<ul>
      			<li  v-for="item,index in prolist" :key="index" :class="item.lastZf<0?'down':'up'" @click="prodetail(item,item.productCode)">
-     				<!-- <p>{{item.productName}}</p>
+     				<p>{{item.productName}}</p>
      				<p :class="item.status==0?'stop':item.status==1&&item.lastZf<0?'down':'up'">{{item.lastP}}
      					<img v-if="item.status==1&&item.lastZf<0" src="../assets/xiadie.png"/>
      					<img v-if="item.status==1&&item.lastZf>0" src="../assets/xiadie拷贝3.png"/>
      				</p>
-     				<p :class="item.status==0?'stop':item.lastZf<0?'down':'up'">{{item.status==1?Tomunber(item.lastZf):'休市中'}}</p> -->
-            <img src="../assets/logo.png" alt="">
-            <p>{{item.productName}}</p>
+     				<p :class="item.status==0?'stop':item.lastZf<0?'down':'up'">{{item.status==1?Tomunber(item.lastZf):'休市中'}}</p>
      			</li>
      		</ul>
      </div>
-
+     
      <div class="news">
 	     	<p style="border-bottom: 1px solid #eee;">资讯新闻</p>
 	     	<div>
@@ -32,7 +30,7 @@
      </div>
      <Tabbar></Tabbar>
      <!--<div class="img" v-if="flag==true">
-     	<img src="../assets/pic_qidong.png"/>
+     	<img src="../assets/pic_qidong.png"/>   	
      </div>-->
   </div>
 </template>
@@ -46,40 +44,40 @@ export default {
   name: 'HelloWorld',
   components:{
   	Header,
-   Tabbar,
+   Tabbar,	
   },
   data () {
-    return {
+    return {   	
     	stompClient:'',
             timer:'',
 		        prolist:[
 			        {
 								productName:'--',
 								lastZf:'--',
-					      lastP:'休市中'
+					      lastP:'休市中'    
 					     },
 				      {
 				      productName:'--',
 							lastZf:'--',
-				      lastP:'休市中'
+				      lastP:'休市中'   
 				      },
 				      {
 				      productName:'--',
 							lastZf:'--',
-				      lastP:'休市中'
+				      lastP:'休市中'   
 				      },
 				      {
 				      productName:'--',
 							lastZf:'--',
-				      lastP:'休市中'
+				      lastP:'休市中'   
 				      }
 		       ],
 			   		bannerlist:'',
 			   		flag:true,
-			   		timer:'',
+			   		timer:'',			   		
     }
   },
-
+ 
   created(){
    this.getbanner();
    this.getpro();
@@ -101,9 +99,9 @@ export default {
 // 				setTimeout(function(){
 // 						this.index='';
 // 				},1000)
-//
+// 				
 // 			}
-//
+// 			
 // 		}
 // 	},
 // 	deep:true
@@ -115,14 +113,14 @@ export default {
 			 	dataType:"json", 
 			 	type:"post",
 			 	url:this.testUrl+'mobile/getBanner',
-			 	data:{},
+			 	data:{},			 	
 			 	success:function(res){
 		       		if(res.code==200){
 		       		  _this.bannerlist=res.data;
 					  console.log(res)
 		       		}
-
-		         },
+		       
+		         },          
 		         error:function(res){
 		          _this.$toast('网络错误');
 		         },
@@ -138,8 +136,8 @@ export default {
 	  	}else{
 	  		this.$router.push({path:'/prodetail',query:{productCode:productCode}})
 	  	}
-
-
+	  	
+	  	
 	  },
 		getpro(){          //获取行情
 			let _this=this;
@@ -147,18 +145,18 @@ export default {
 			 	dataType:"json", 
 			 	type:"get",
 			 	url:this.testUrl+'product/getIndex',
-			 	data:{},
+			 	data:{},		 	
 			 	success:function(res){
 		       		if(res.code==200){
 		       		  _this.prolist=res.data;
 		       		}
-
-		         },
+		       
+		         },          
 		         error:function(res){
 		          _this.$toast('网络错误');
 		         },
 		        complete:function(){
-
+		        	
 		        }
 			 });
 		},
@@ -178,7 +176,7 @@ export default {
 	width: 100%;
 	background: #fff;
 	z-index: 9;
-}
+}	
 .product>ul{
 	display: flex;
 	flex-wrap:wrap;
@@ -200,16 +198,7 @@ export default {
 li{
   border-left: 0;
 }
-li>img{
-  width: 1.4rem;
-  height: 1.4rem;
-}
-li>p{
-  font-size: 0.32rem;
-  color: #000000;
-  font-weight: bold;
-}
-/* li>p:nth-child(1){
+li>p:nth-child(1){
 	color: #333333;
 	font-size: 0.4rem;
 }
@@ -223,7 +212,7 @@ li>p:nth-child(2)>img{
 }
 li>p:nth-child(3){
 	font-size: 0.32rem;
-} */
+}
 ul>li:nth-child(1){
 	border-bottom:0;
 	border-left: 0;

@@ -5,41 +5,27 @@
 		</div>
 		<div class="bgline"></div>
 		<Cropper  @fromChild="getChild"></Cropper>
-    <div class="moneyall">
-      <div>
-      	<p>总资产</p>
-      	<p class="moneny">￥{{childVal}}</p>
-      </div>
-      <div>
-      	<p>冻结资产</p>
-      	<p class="moneny">￥{{childVal}}</p>
-      </div>
-      <div>
-      	<p>可用资产</p>
-      	<p class="moneny">￥{{childVal}}</p>
-      </div>
-    </div>
 		<div class="info">
 			<div class="bottom">
-		<!-- 		<div>
+				<div>
 					<p>钱包余额</p>
 					<p class="moneny">{{childVal}}</p>
-				</div> -->
-
+				</div>
+	
 					<button class="cz" @click="addmoney">充值</button>
-					<button class="tx" @click="cutmoney">提现</button>
-			</div>
+					<button class="tx" @click="cutmoney">提现</button>			
+			</div>			
 		</div>
 		<div class="bgline"></div>
 		<ul>
 			 <!--<router-link :to="{path:'/moneydetail',query:{type:'in'}}">-->
-				<li @click="gomoneydetail()">
+				<li @click="gomoneydetail()">			 
 					<span>
 						<img src="../assets/b_chongzhi.png" alt="" />
 						<span>入金明细</span>
 					</span>
 					<img src="../assets/b_xia.png"/>
-
+				 	
 				</li>
 			 <!--</router-link>-->
 			 <!-- <router-link :to="{path:'/moneydetail',query:{type:'out'}}">-->
@@ -88,19 +74,27 @@
 		<!--	</router-link>-->
 		</ul>
 		<ul>
-			<!--<router-link :to="{path:'/setting'}">-->
-				<li  @click="gosetting()">
+			<!--<router-link :to="{path:'/setting'}">-->				
+				<li  @click="gowechat()">
 					<span>
-						<img src="../assets/b_-shezhi.png" alt="" />
-						<span>设置</span>
+						<img src="../assets/images/chat.png" alt="" />
+						<span>联系客服</span>
 					</span>
 					<img src="../assets/b_xia.png"/>
 				</li>
 			<!--  </router-link>-->
 		</ul>
-
+		<ul>
+			<li  @click="gosetting()">
+				<span>
+					<img src="../assets/b_-shezhi.png" alt="" />
+					<span>设置</span>
+				</span>
+				<img src="../assets/b_xia.png"/>
+			</li>
+		</ul>
 		<Tabbar></Tabbar>
-
+		
 	</div>
 </template>
 
@@ -119,18 +113,18 @@ export default {
 		creadtedcar:''
     }
   },
-
+ 
   created(){
 	this.getBindBank();
   },
   mounted(){
-
+		
   },
   methods:{
   	 getChild (v) {  //获取可用资金
             this.childVal = v;
         },
-     gomoneydetail(){   //入金明细
+     gomoneydetail(){   //入金明细      
      	localStorage.getItem('uid')?this.$router.push({path:'/moneydetail',query:{type:'in'}}):this.$router.push({path:'/login'})
      },
      gomoneydetailout(){ //出金明细
@@ -142,6 +136,9 @@ export default {
      godealrules(){     //规则列表
      	localStorage.getItem('uid')?this.$router.push({path:'/dealrules',query:{type:'out'}}):this.$router.push({path:'/login'})
      },
+	 gowechat(){
+	    localStorage.getItem('uid')?this.$router.push({path:'/chat',query:{type:'out'}}):this.$router.push({path:'/login'}) 
+	 },
      gocarset(){      //银行卡绑定
      	if(localStorage.getItem('uid')){
      		if(this.creadtedcar==0){
@@ -150,9 +147,9 @@ export default {
      			this.$router.push({path:'/cardsure'})
      		}
      	}else{
-     	  this.$router.push({path:'/login'})
+     	  this.$router.push({path:'/login'})	
      	}
-
+     	
      },
      gosetting(){    //设置
      	localStorage.getItem('uid')?this.$router.push({path:'/setting',query:{type:'out'}}):this.$router.push({path:'/login'})
@@ -170,8 +167,8 @@ export default {
 	       		if(res.code==200){
 					_this.creadtedcar=res.data.created;
 	       		}
-
-	         },
+	       
+	         },          
 	         error:function(res){
 	          _this.$toast('网络错误');
 	         },
@@ -182,27 +179,37 @@ export default {
      },
 	 addmoney(){
 		 if(localStorage.getItem('uid')){
-		 	 this.$router.push({path:'/addmoney',query:{type:'add'}})
+		 	 // this.$router.push({path:'/addmoney',query:{type:'add'}})
+			  this.$toast('充值请添加客服微信');
+			 let _this=this;
+			 setTimeout(function(){
+				_this.$router.push({path:'/chat'}) 
+			 },2000)
 		 }else{
 		    this.$router.push({path:'/login'})
 		 }
 	 },
 	 cutmoney(){
 		if(localStorage.getItem('uid')){
-			 this.$router.push({path:'/addmoney',query:{type:'cut'}})
+			 // this.$router.push({path:'/addmoney',query:{type:'cut'}})
+			 this.$toast('提现请添加客服微信');
+			 let _this=this;
+			 setTimeout(function(){
+			 _this.$router.push({path:'/chat'}) 
+			 },2000)
 		}else{
 		   this.$router.push({path:'/login'})
-		}
+		} 
 	 }
-
+	  
   	}
-  }
+  }	
 </script>
 
 <style scoped>
 .mine{
-	margin-bottom: 2.2rem;
-}
+	padding-bottom: 2.6rem;
+}	
 .head{
 	height: 1.17rem;
 	font-size: 0.48rem;
@@ -215,15 +222,6 @@ export default {
 	padding: 0 0.4rem;
 	/*	padding-top: 0.4rem;*/
 }
-.moneyall{
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  margin-top:0.4rem;
-  }
-  .moneyall>div>p:nth-child(1){
-    font-weight: bold;
-  }
 ul{
 	margin: 0 0.4rem;
 }
@@ -261,17 +259,15 @@ ul{
 	display: flex;
 	margin: 0.4rem 0;
 	align-items:flex-end;
-	justify-content: flex-end;
+	justify-content: space-around;
 }
-.bottom>button{
-/* 	color: #333333; */
+.bottom>div{
+	color: #333333;
 	font-size: 0.42rem;
-  margin: 0 0.3rem;
 }
 .moneny{
-	font-weight: bold;
-	font-size: 0.44rem;
-  color: red;
+	color: #333333;
+	font-size: 0.74rem;
 	margin-top: 0.13rem;
 }
 .cz{
@@ -291,7 +287,7 @@ ul{
 	background: #fff;
 	color:#3168FA;
 	border:2px solid #3168FA;
-	font-size: 0.42rem;
+	font-size: 0.42rem;	
 	margin-bottom:0.13rem;
 }
 ul{

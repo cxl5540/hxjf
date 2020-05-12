@@ -1,8 +1,13 @@
 <template>
 	<div class="header">
-		   <span  :style="{'opacity': (path=='/index' ? '1':path=='/' ?'1':'0')}" @click="changelg">{{$store.state.lg=='C'?'English':'简体中文'}}</span>
+	 <!--<mt-header title='$route.meta.title'>
+        <router-link to="/" slot="right">
+          <mt-button>名字1</mt-button>
+        </router-link>
+      </mt-header>-->
+		<span style="opacity: 0;">名字</span>
       	<span>银河金服</span>
-      	<span @click="gomine">{{name}}</span>
+      	<span @click="gomine">{{name}}</span>	
 	</div>
 </template>
 
@@ -13,18 +18,37 @@ export default {
 	  },
 	  data () {
 	    return {
-		  name:'未登录',
-      path:this.$route.path
+		  name:'未登录'
 	    }
 	  },
-
+	 
 	  created(){
 	  	this.getinfo();
-      this.path=this.$route.path
+//	  	  var data =JSON.parse(localStorage.getItem("user")); 
+//	  	  if(localStorage.getItem('username')){
+//	  	    	this.name=localStorage.getItem('username');
+//	  	    	if(this.name.length>3){
+//		 		this.name=this.name.substring(0,2)+'...'
+//		 	  }
+//	  	  }else{
+//	  	  	this.name=_const.username;
+//	  	  	this.name='未登录';
+//	  	  }
+	  	  
+	  	  
+//	  	  console.log(_const.username)
+//		 if(_const.uid&&_const.uid){
+//		 	this.name=_const.username;
+//		 	if(this.name.length>3){
+//		 		this.name=this.name.substring(0,2)+'...'
+//		 	}
+//		 }else{
+//		 	this.name='未登录';
+//		 }
 
 	  },
 	  mounted(){
-
+			
 	  },
 	  methods:{
 		gomine(){
@@ -42,7 +66,7 @@ export default {
 			 	url:this.testUrl+'mobile/getMyCenter',
 			 	data:{
 			 		uid:localStorage.getItem('uid')
-			 	},
+			 	},  
 			 	success:function(res){
 		       		if(res.code==200){
 		       			if(res.data.realName){
@@ -50,9 +74,9 @@ export default {
 		       			}else{
 		       				_this.name='未登录';
 		       			}
-
-		       		}
-		         },
+		       		
+		       		}      
+		         },          
 		         error:function(res){
 		           _this.$toast('网络错误');
 		         },
@@ -60,18 +84,9 @@ export default {
 		        	$('#loading').hide()
 		        }
 			 });
-		   },
-       changelg(){
-         console.log(this.$store.state.lg)
-          if(this.$store.state.lg=='C'){
-            this.$store.state.lg='N'
-          }else{
-           this.$store.state.lg='C'
-          }
-          
-         }
+		   }
 	  	}
-	  }
+	  }	
 </script>
 
 <style scoped="scoped">
